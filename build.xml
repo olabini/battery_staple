@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project basedir="." default="jar" name="battery_staple">
+  <description>
+    Generate secure pass phrases
+  </description>
+
+  <target name="prepare" description="Creates the directories needed for building">
+    <mkdir dir="build"/>
+    <mkdir dir="build/classes"/>
+  </target>
+
+  <target name="compile" depends="prepare" description="Compile the source files for the project.">
+    <javac destdir="build/classes" source="1.6" target="1.6" debug="true" encoding="UTF-8" includeantruntime="false">
+      <src path="src"/>
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile" description="Create the battery_staple.jar file">
+    <jar destfile="battery_staple.jar">
+      <fileset dir="build/classes">
+        <include name="**/*.class"/>
+      </fileset>
+      <fileset file="diceware.wordlist"/>
+      <manifest>
+        <attribute name="Main-Class" value="com.olabini.battery_staple.Main"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="clean" description="clean almost everything">
+    <delete dir="build"/>
+    <delete file="battery_staple.jar"/>
+  </target>
+</project>
